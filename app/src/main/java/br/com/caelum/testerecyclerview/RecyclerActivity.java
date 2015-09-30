@@ -1,5 +1,6 @@
 package br.com.caelum.testerecyclerview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,31 +13,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.caelum.testerecyclerview.adapter.MyAdapter;
+import br.com.caelum.testerecyclerview.application.RecyclerApplication;
 
 public class RecyclerActivity extends AppCompatActivity {
 
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private RecyclerApplication application;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
 
+        application = new RecyclerApplication();
+
         recycler = (RecyclerView) findViewById(R.id.recycler);
         recycler.setHasFixedSize(true);
 
-        layoutManager = new GridLayoutManager(this, 6);
+        layoutManager = new GridLayoutManager(this, 5);
         recycler.setLayoutManager(layoutManager);
 
 
-        List<String> nomes = new ArrayList<>();
+        List<Integer> numeros = new ArrayList<>();
 
-        for (int i = 1; i <= 50; i++) {
-            nomes.add(String.valueOf(i));
+        for (int i = 1; i <= 75; i++) {
+            numeros.add(i);
         }
-        adapter = new MyAdapter(nomes);
+        adapter = new MyAdapter(numeros, this);
 
         recycler.setItemAnimator(new DefaultItemAnimator());
 
@@ -58,7 +64,9 @@ public class RecyclerActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.numeros_sorteados) {
+            Intent intent = new Intent(this, NumerosSorteadosActivity.class);
+            startActivity(intent);
             return true;
         }
 

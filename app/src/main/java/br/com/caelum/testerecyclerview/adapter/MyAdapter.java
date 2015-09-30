@@ -1,7 +1,7 @@
 package br.com.caelum.testerecyclerview.adapter;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +10,19 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.caelum.testerecyclerview.R;
+import br.com.caelum.testerecyclerview.application.RecyclerApplication;
 
 /**
  * Created by matheus on 28/09/15.
  */
 public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter {
 
-    private List<String> dados;
+    private List<Integer> numeros;
+    private Activity activity;
 
-    public MyAdapter(List<String> dados) {
-
-        this.dados = dados;
+    public MyAdapter(List<Integer> numeros, Activity activity) {
+        this.numeros = numeros;
+        this.activity = activity;
     }
 
     @Override
@@ -37,29 +39,30 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         ViewHolder viewHolder = (ViewHolder) holder;
-
-        viewHolder.nome.setText(dados.get(position));
+        String numero = String.valueOf(numeros.get(position));
+        viewHolder.numero.setText(numero);
     }
 
     @Override
     public int getItemCount() {
-        return dados.size();
+        return numeros.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView nome;
+        public TextView numero;
 
-        public ViewHolder(View view) {
+        public ViewHolder(final View view) {
             super(view);
-            this.nome = (TextView) view.findViewById(R.id.recycler_layout_nome);
+            this.numero = (TextView) view.findViewById(R.id.numero);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Log.i("dados = ", dados.get(getAdapterPosition()));
-                    dados.remove(getAdapterPosition());
+                    RecyclerApplication application = (RecyclerApplication) activity.getApplication();
+                    application.adicionaNumero((numeros.get(getAdapterPosition())));
+                    numeros.remove(getAdapterPosition());
                     notifyItemRemoved(getAdapterPosition());
                 }
             });
