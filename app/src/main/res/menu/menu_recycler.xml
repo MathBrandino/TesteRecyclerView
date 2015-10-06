@@ -1,6 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".RecyclerActivity">
+
+    <item android:id="@+id/troca_layout" android:title="Alterna" android:icon="@android:drawable/ic_dialog_dialer"
+        app:showAsAction="always"/>
+
     <item android:id="@+id/numeros_sorteados" android:title="Numeros Sorteados"
         android:icon="@android:drawable/ic_menu_view"
         android:orderInCategory="100" app:showAsAction="always" />

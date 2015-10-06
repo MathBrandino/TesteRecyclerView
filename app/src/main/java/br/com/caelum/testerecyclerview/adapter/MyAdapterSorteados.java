@@ -48,17 +48,19 @@ public class MyAdapterSorteados extends android.support.v7.widget.RecyclerView.A
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         private TextView numero;
 
         public ViewHolder(final View itemView) {
             super(itemView);
             numero = (TextView) itemView.findViewById(R.id.numeros_sorteados);
-            final CardView cardView = (CardView) numero.getParent();
+            final CardView cardView = (CardView) itemView;
 
             numero.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     cardView.setCardBackgroundColor(Color.GREEN);
+
                 }
             });
         }

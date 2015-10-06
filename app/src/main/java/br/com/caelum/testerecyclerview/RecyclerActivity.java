@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,7 @@ public class RecyclerActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerApplication application;
+    private int valor = 0;
 
 
     @Override
@@ -68,7 +72,14 @@ public class RecyclerActivity extends AppCompatActivity {
             Intent intent = new Intent(this, NumerosSorteadosActivity.class);
             startActivity(intent);
             return true;
+        } if (id == R.id.troca_layout) {
+            valor ++;
+            layoutManager =  valor % 2 == 0 ? new GridLayoutManager(this, 3) :  new LinearLayoutManager(this);
+            recycler.setLayoutManager(layoutManager);
+
         }
+
+
 
         return super.onOptionsItemSelected(item);
     }
